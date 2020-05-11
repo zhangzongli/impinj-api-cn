@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-// demonstrates block permalocking of user memory 
+// demonstrates block permalocking of user memory
+// 演示用户内存的块永久锁定
 public class BlockPermalock {
 
     public static void main(String[] args) {
@@ -33,10 +34,14 @@ public class BlockPermalock {
             reader.applySettings(settings);
 
             // create the reader op sequence
+            // 创建一个读写器操作序列
             TagOpSequence seq = new TagOpSequence();
             seq.setOps(new ArrayList<TagOp>());
+            // 此操作序列在被删除之前将执行的次数。零（0）值表示该序列永远不会删除。
             seq.setExecutionCount((short) 1);
+            // 徐磊状态
             seq.setState(SequenceState.Active);
+            // 设置id
             seq.setId(1);
 
             // lock the first block of memory. This only works on user memory
@@ -69,6 +74,9 @@ public class BlockPermalock {
             // typically the application would also listen for tag reports
             // but we don't here since it would print out too much
             // reader.setTagReportListener(new TagReportListenerImplementation());
+
+            // 通常，应用程序还会侦听标签报告，但是我们不在这里，因为它会打印出过多的阅读器。
+            // setTagReportListener（new TagReportListenerImplementation（））;
 
             // Start the reader
             reader.start();

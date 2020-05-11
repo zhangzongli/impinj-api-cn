@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
+// 块 写入 与 读取
 public class BulkReadWrite implements TagOpCompleteListener {
 
     static short numWordsInUserMemory = 32;
@@ -25,7 +26,9 @@ public class BulkReadWrite implements TagOpCompleteListener {
         numOpsAdded = 0;
 
         // Each TagReadOp can only access up to maxReadWriteBlockSize words.
+        // 每一次 标签读取操作 只能 进行 maxReadWriteBlockSize 个字节
         // So, we need to break this read up into multiple operations.
+        // 所以 我们需要将这个读取操作 分为多个操作
         while (wordCount > 0) {
             // Define a new tag operation sequence.
             TagOpSequence seq = new TagOpSequence();
