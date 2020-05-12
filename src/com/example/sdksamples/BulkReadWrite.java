@@ -31,13 +31,16 @@ public class BulkReadWrite implements TagOpCompleteListener {
         // 所以 我们需要将这个读取操作 分为多个操作
         while (wordCount > 0) {
             // Define a new tag operation sequence.
+            // 定义新的标签操作顺序
             TagOpSequence seq = new TagOpSequence();
             seq.setState(SequenceState.Active);
             seq.setExecutionCount((short) 1);
             seq.setId(wordCount); // just some unique ID
+            // 指示序列将运行ExecutionCount参数中指定的次数。
             seq.setSequenceStopTrigger(SequenceTriggerType.ExecutionCount);
 
             // Define a tag read operation
+            // 定义一个标签读取操作
             TagReadOp op = new TagReadOp();
             op.setAccessPassword(accessPassword);
             op.setMemoryBank(bank);
