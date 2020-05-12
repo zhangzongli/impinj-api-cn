@@ -9,9 +9,11 @@ import java.util.Scanner;
 public class ConfigureManyAntennas {
 
     // This examples shows the different ways to configure antennas.
+    // 此示例显示了配置天线的不同方法。
     public static void main(String[] args) {
         try {
-            String hostname = System.getProperty(SampleProperties.hostname);
+//            String hostname = System.getProperty(SampleProperties.hostname);
+            String hostname = SampleProperties.hostname;
 
             if (hostname == null) {
                 throw new Exception("Must specify the '"
@@ -31,10 +33,12 @@ public class ConfigureManyAntennas {
             Settings settings = reader.queryDefaultSettings();
 
             // send a tag report for every tag read
+            // 为读取的每个标签发送标签报告
             settings.getReport().setMode(ReportMode.Individual);
             settings.getReport().setIncludeAntennaPortNumber(true);
 
             // disable all antennas, then enable our special set
+            // 禁用所有天线，然后启用我们的特殊设置
             AntennaConfigGroup ac = settings.getAntennas();
 
             ac.disableAll();

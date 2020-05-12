@@ -45,6 +45,7 @@ public class BlockPermalock {
             seq.setId(1);
 
             // lock the first block of memory. This only works on user memory
+            // 锁定第一块内存。 这仅适用于用户内存
             TagBlockPermalockOp blockOp = new TagBlockPermalockOp();
             blockOp.setBlockMask(BlockPermalockMask.fromBlockNumber((short) 0));
 

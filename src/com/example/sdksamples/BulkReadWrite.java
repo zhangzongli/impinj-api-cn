@@ -31,7 +31,7 @@ public class BulkReadWrite implements TagOpCompleteListener {
         // 所以 我们需要将这个读取操作 分为多个操作
         while (wordCount > 0) {
             // Define a new tag operation sequence.
-            // 定义新的标签操作顺序
+            // 定义一个新的标签操作序列
             TagOpSequence seq = new TagOpSequence();
             seq.setState(SequenceState.Active);
             seq.setExecutionCount((short) 1);
@@ -49,10 +49,12 @@ public class BulkReadWrite implements TagOpCompleteListener {
                     : maxReadWriteBlockSize);
 
             // Add the read op to the operation sequence
+            // 添加一个读取操作 在 操作序列中
             seq.setTargetTag(null);
             seq.getOps().add(op);
 
             // Adjust the word count and pointer for the next reader operation
+            // 调整字数和指针，以进行下一个阅读器操作
             wordCount -= op.getWordCount();
             wordPointer += op.getWordCount();
 
@@ -112,7 +114,8 @@ public class BulkReadWrite implements TagOpCompleteListener {
 
 
         try {
-            String hostname = System.getProperty(SampleProperties.hostname);
+//            String hostname = System.getProperty(SampleProperties.hostname);
+            String hostname = SampleProperties.hostname;
 
             if (hostname == null) {
                 throw new Exception("Must specify the '"
