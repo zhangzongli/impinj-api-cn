@@ -4,7 +4,7 @@ import com.impinj.octane.*;
 
 import java.util.Scanner;
 
-
+//阅读器事件
 public class ReaderEvents {
 
     public static void main(String[] args) {
@@ -26,7 +26,9 @@ public class ReaderEvents {
             // Get the default settings
             Settings settings = reader.queryDefaultSettings();
 
-            // this will eventually cause buffer events 
+            // this will eventually cause buffer events
+            // 最终将导致缓冲区事件
+            // 每个标签都发送报告
             settings.getReport().setMode(ReportMode.Individual);
             settings.setReaderMode(ReaderMode.MaxThroughput);
             settings.setSearchMode(SearchMode.DualTarget);

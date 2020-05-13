@@ -2,6 +2,7 @@ package com.example.sdksamples;
 
 import com.impinj.octane.*;
 
+// 查询状态
 public class QueryStatus {
 
     public static void main(String[] args) {

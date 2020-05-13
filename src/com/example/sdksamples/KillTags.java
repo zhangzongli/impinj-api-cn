@@ -34,6 +34,7 @@ public class KillTags implements TagOpCompleteListener {
             // Always use a target tag for kill
             // because the action is not reversible
             // since its not reversible, we make the example set this property
+            // 一直使用一个目标标签去杀死，因为这个操作是不可逆的。
             if (targetEpc == null) {
                 throw new Exception("You must specify the '"
                         + SampleProperties.targetTag + "' property "
@@ -77,13 +78,16 @@ public class KillTags implements TagOpCompleteListener {
             reader.addOpSequence(seq);
 
             // set up listeners to hear stuff back from SDK
+            // 设置侦听器以从SDK收听内容
 
             // this one is optional but you can have it on to prove the tag was
             // killed
             //reader.setTagReportListener(new TagReportListenerImplementation());
+            // 读写器标签报告监听是可选的，但是可以用这个来证明标签被杀死
 
             // this one gets the operation complete on the kill password and
             // performs the kill
+            // 下面的操作完成了 杀死密码 上的操作，并杀死标签
             reader.setTagOpCompleteListener(this);
 
             System.out.println("Trying to kill tag matching EPC pattern " +
@@ -126,7 +130,7 @@ public class KillTags implements TagOpCompleteListener {
 
                 // if this succeeded, go ahead and add the op Spec to kill the
                 // tag
-
+                // 如果操作成功，继续添加操作来终止杀死标签
                 if (tw.getResult() == WriteResultStatus.Success) {
                     System.out.println("Adding Kill Command ");
                     addKillSequence();

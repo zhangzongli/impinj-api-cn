@@ -5,13 +5,16 @@ import com.impinj.octane.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//查询阅读器设置
 public class QueryReaderSettings {
 
     // Create an instance of the ImpinjReader class.
     static ImpinjReader reader = new ImpinjReader();
 
+    // 显示当前设置
     static void DisplayCurrentSettings() throws OctaneSdkException {
         // Query the current reader settings and print some of the results.
+        // 查询当前阅读器设置并打印一些结果。
         System.out.println("Reader Settings");
         System.out.println("---------------");
 

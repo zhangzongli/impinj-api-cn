@@ -4,7 +4,7 @@ import com.impinj.octane.*;
 
 import java.util.Scanner;
 
-
+// 优化阅读
 public class OptimizedRead {
 
     public static void main(String[] args) {

@@ -4,7 +4,7 @@ import com.impinj.octane.*;
 
 import java.util.Scanner;
 
-
+// 低占空比
 public class LowDutyCycle {
 
     public static void main(String[] args) {
@@ -26,9 +26,11 @@ public class LowDutyCycle {
             Settings settings = reader.queryDefaultSettings();
 
             // send a tag report for every tag read
+            // 为读取的每个标签发送标签报告
             settings.getReport().setMode(ReportMode.Individual);
 
             // set up low duty cycle mode
+            // 设置低占空比模式
             LowDutyCycleSettings ldc = settings.getLowDutyCycle();
 
             ldc.setEmptyFieldTimeoutInMs(2000);

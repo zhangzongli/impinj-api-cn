@@ -28,14 +28,17 @@ public class DisconnectedOperation {
             // dont' connect a listener here because it may be hard to see the
             // printouts
             // reader.setTagReportListener(new TagReportListenerImplementation());
+            // 不要在这里连接一个监听 因为可能很难看到打印输出
 
             // Get the default settings
             Settings settings = reader.queryDefaultSettings();
 
             // set the start trigger to immediate
+            // 设置触发器为立即执行
             settings.getAutoStart().setMode(AutoStartMode.Immediate);
 
             // dont' send events and reports when disconnected
+            // 不发送时间和报告 当断开连接时
             settings.setHoldReportsOnDisconnect(true);
 
             settings.getReport().setIncludeAntennaPortNumber(true);
@@ -45,9 +48,11 @@ public class DisconnectedOperation {
             reader.applySettings(settings);
             // save the settings into the reader so they live through reboot in
             // case the reader reboots while disconnected
+            // 将设置保存到阅读器中，以便它们在重新启动后仍然存在如果阅读器在断开连接时重新启动
             reader.saveSettings();
 
             // disconnect but keep going
+            // 断开连接，但继续前进
             reader.disconnect();
 
             System.out.println("Reader running in disconnect operation .");
@@ -75,6 +80,7 @@ public class DisconnectedOperation {
             reader.stop();
 
             // save the defaults back to the device
+            // 将设置保存在设备中
             reader.applyDefaultSettings();
             reader.saveSettings();
 

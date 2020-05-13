@@ -14,7 +14,8 @@ import com.impinj.octane.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// demonstrates margin read of tag memory 
+// demonstrates margin read of tag memory
+// 演示标签存储器的边距读取
 public class MarginRead implements TagOpCompleteListener {
 
     public static void main(String[] args) {
@@ -42,6 +43,7 @@ public class MarginRead implements TagOpCompleteListener {
             // Create a tag operation sequence.
             // You can add multiple read, write, lock, kill and QT
             // operations to this sequence.
+            // 您可以添加多个读取，写入，锁定，终止和QT 对该序列进行操作。
             TagOpSequence seq = new TagOpSequence();
             
             seq.setOps(new ArrayList<TagOp>());
@@ -55,18 +57,24 @@ public class MarginRead implements TagOpCompleteListener {
             seq.getTargetTag().setData(TARGET_EPC);
 
             // Define a Margin Read operation.
+            // 定义一个边距读取操作
             TagMarginReadOp marginReadOp = new TagMarginReadOp();
 
             // Define the mask to margin read.
+            // 定义遮罩以读取边距。
             // A MarginReadMask can be created from a hexadecimal string or a bit string.
+            // 可以从十六进制字符串或位字符串创建MarginReadMask
             // This mask is margin reading 1160.
+            // 此掩码的边距读数为1160。
             marginReadOp.setMarginMask(new MarginReadMask());
             marginReadOp.getMarginMask().setMaskFromHexString("1160");
             //marginReadOp.getMarginMask().setMaskFromBitString("0001000101100000");
 
             // Define the bit pointer (or "place to start looking") and the memory bank.
+            // 定义位指针（或“开始寻找的地方”）和存储体。
             // We're adding 16 to get to the second word of the EPC. Our TargetTag filter
             // already ensures the EPC starts with "E280"
+            // 我们将16加到EPC的第二个单词。 我们的TargetTag过滤器已经确保EPC以“ E280”开头
             marginReadOp.setBitPointer(BitPointers.Epc + 16);
             marginReadOp.setMemoryBank(MemoryBank.Epc);
 
