@@ -6,6 +6,7 @@ import com.impinj.octane.Settings;
 
 import java.util.Scanner;
 
+// 设置GPO
 public class SetGPO {
 
     public static void main(String[] args) {

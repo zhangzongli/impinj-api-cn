@@ -4,6 +4,7 @@ import com.impinj.octane.*;
 
 import java.util.Scanner;
 
+// 等待查询
 public class WaitForQuery {
 
     public static void main(String[] args) {
@@ -44,6 +45,7 @@ public class WaitForQuery {
 
             // since we are not getting reports until we ask, we may get buffer
             // filling
+            // 由于我们直到询问才收到报告，因此我们可能会缓冲填充
             reader.setBufferOverflowListener(
                     new BufferOverflowListenerImplementation());
             reader.setBufferWarningListener(

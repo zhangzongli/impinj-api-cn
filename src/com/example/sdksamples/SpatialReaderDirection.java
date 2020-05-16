@@ -7,6 +7,8 @@ import java.util.Scanner;
 // Direction-specific imports:
 // For filtering
 
+// 空间阅读器方向
+// R420 有没有这个功能
 public class SpatialReaderDirection {
 
     public static void main(String[] args) {
@@ -26,6 +28,7 @@ public class SpatialReaderDirection {
             Settings settings = reader.queryDefaultSettings();
 
             // Tells the spatial reader that we want to operate in Direction mode
+            // 告诉空间阅读器我们要在“方向”模式下操作
             settings.getSpatialConfig().setMode(SpatialMode.Direction);
 
             // The spatial reader's direction feature works best with a smaller tag population,

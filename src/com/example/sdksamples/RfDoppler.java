@@ -7,6 +7,7 @@ import com.impinj.octane.Settings;
 
 import java.util.Scanner;
 
+// 射频多普勒
 public class RfDoppler {
 
     public static void main(String[] args) {
@@ -28,6 +29,7 @@ public class RfDoppler {
             Settings settings = reader.queryDefaultSettings();
 
             // Doppler works best at M=8 mode
+            // 多普勒在M = 8模式下效果最佳
             settings.setReaderMode(ReaderMode.DenseReaderM8);
             settings.getReport().setIncludeDopplerFrequency(true);
 

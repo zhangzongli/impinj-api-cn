@@ -4,7 +4,7 @@ import com.impinj.octane.*;
 
 import java.util.Scanner;
 
-
+// 阅读标签周期性触发
 public class ReadTagsPeriodicTrigger {
 
     public static void main(String[] args) {

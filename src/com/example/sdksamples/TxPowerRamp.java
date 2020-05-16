@@ -2,6 +2,7 @@ package com.example.sdksamples;
 
 import com.impinj.octane.*;
 
+// 发射功率斜坡
 public class TxPowerRamp {
 
     public static void main(String[] args) {
@@ -30,6 +31,7 @@ public class TxPowerRamp {
             settings.getReport().setIncludePeakRssi(true);
 
             // set just one specific antenna for this example
+            // 本示例仅设置一个特定的天线
             AntennaConfigGroup ac = settings.getAntennas();
 
             ac.disableAll();

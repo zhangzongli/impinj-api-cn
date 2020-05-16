@@ -32,7 +32,8 @@ public class ReadTagsFiltered {
 
             String targetEpc = System.getProperty(SampleProperties.targetTag);
 
-            // this will match the first 16 bits of the target EPC. 
+            // this will match the first 16 bits of the target EPC.
+            // 这将与目标EPC的前16位匹配。
             if (targetEpc != null) {
                 TagFilter t1 = settings.getFilters().getTagFilter1();
                 t1.setBitCount(16);
@@ -47,7 +48,8 @@ public class ReadTagsFiltered {
 
             String targetUser = System.getProperty(SampleProperties.targetUser);
 
-            // this will match the first 8 bits of user memory 
+            // this will match the first 8 bits of user memory
+            // 这将与用户存储器的前8位匹配
             if (targetUser != null) {
                 TagFilter t2 = settings.getFilters().getTagFilter1();
                 t2.setBitCount(8);
@@ -60,7 +62,8 @@ public class ReadTagsFiltered {
                         + targetUser);
             }
 
-            // enable both filters if they are set 
+            // enable both filters if they are set
+            // 启用两个过滤器（如果已设置）
             if ((targetEpc != null) && (targetUser != null)) {
                 settings.getFilters().setMode(TagFilterMode.Filter1AndFilter2);
             }

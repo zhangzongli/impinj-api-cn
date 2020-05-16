@@ -5,6 +5,7 @@ import com.impinj.octane.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// 设置发送频率
 public class SetTxFrequencies {
 
     public static void main(String[] args) {

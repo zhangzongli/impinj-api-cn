@@ -6,6 +6,7 @@ import com.impinj.octane.Settings;
 
 import java.util.Scanner;
 
+// 软件过滤
 public class SoftwareFiltering {
 
     public static void main(String[] args) {

@@ -32,9 +32,12 @@ public class ReadTags {
             // dynamics are optimized for specific regions and environments.
             // The following mode, AutoSetDenseReader, monitors RF noise and interference and then automatically
             // and continuously optimizes the reader's configuration
+            // 可以将阅读器设置为各种模式，其中阅读器动态针对特定区域和环境进行了优化
+            // 以下模式AutoSetDenseReader监视RF噪声和干扰，然后自动并持续优化阅读器的配置
             settings.setReaderMode(ReaderMode.AutoSetDenseReader);
 
             // set some special settings for antenna 1
+            // 为天线1设置一些特殊设置
             AntennaConfigGroup antennas = settings.getAntennas();
             antennas.disableAll();
             antennas.enableById(new short[]{1});

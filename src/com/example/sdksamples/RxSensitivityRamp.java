@@ -2,6 +2,7 @@ package com.example.sdksamples;
 
 import com.impinj.octane.*;
 
+// Rx灵敏度斜坡
 public class RxSensitivityRamp {
 
     public static void main(String[] args) {

@@ -5,6 +5,7 @@ import com.impinj.octane.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// 降低功率频率
 public class ReducedPowerFrequencies {
 
     public static void main(String[] args) {
