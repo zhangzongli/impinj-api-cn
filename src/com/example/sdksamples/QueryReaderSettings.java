@@ -78,6 +78,7 @@ public class QueryReaderSettings {
             reader.applyDefaultSettings();
 
             // Display the current reader settings.
+            // 显示当前的阅读器设置。
             DisplayCurrentSettings();
 
             // Save the settings to file in XML format.

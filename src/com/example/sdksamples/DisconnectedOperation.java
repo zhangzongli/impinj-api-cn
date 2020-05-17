@@ -80,7 +80,7 @@ public class DisconnectedOperation {
             reader.stop();
 
             // save the defaults back to the device
-            // 将设置保存在设备中
+            // 将默认值保存回设备
             reader.applyDefaultSettings();
             reader.saveSettings();
 
