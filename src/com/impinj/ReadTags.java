@@ -1,6 +1,8 @@
 package com.impinj;
 
 import com.example.sdksamples.TagReportListenerImplementation;
+import com.impinj.cache.ReadTagsDataCache;
+import com.impinj.listener.TagReportListenerImpl;
 import com.impinj.octane.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,41 +32,56 @@ public class ReadTags {
             // 在AutoSetDenseReader读写器模式下，监视RF噪声和干扰，然后自动并持续优化阅读器的配置
             settings.setReaderMode(ReaderMode.AutoSetDenseReader);
 
-            // 设置搜索模式。进入扫描区域为A状态，离开后为B状态
-            settings.setSearchMode(SearchMode.SingleTargetReset);
-            settings.setSession(2);
+            // 设置搜索模式。不停读取标签 AB 状态循环
+            settings.setSearchMode(SearchMode.DualTarget);
+            settings.setSession(0);
 
 
             AntennaConfigGroup antennaConfigs = settings.getAntennas();
 
             log.info("当前读写器有"+ antennaConfigs.getAntennaConfigs().size() + "个天线");
 
-            // 禁用全部
-            antennaConfigs.disableAll();
-            antennaConfigs.enableById(new short[]{1});
-            // 取消最大灵敏度
-            antennaConfigs.getAntenna((short) 1).setIsMaxRxSensitivity(false);
-            // 取消最大功率
-            antennaConfigs.getAntenna((short) 1).setIsMaxTxPower(false);
-            // 设置功率
-            antennaConfigs.getAntenna((short) 1).setTxPowerinDbm(20.0);
-            // 设置灵敏度
-            antennaConfigs.getAntenna((short) 1).setRxSensitivityinDbm(-70);
+            // 启用全部
+            antennaConfigs.enableAll();
+            for (int i = 1; i <= antennaConfigs.getAntennaConfigs().size(); i++) {
+                AntennaConfig antennaConfig = antennaConfigs.getAntenna((short) 1);
+                // 取消最大灵敏度
+                antennaConfigs.getAntenna((short) 1).setIsMaxRxSensitivity(false);
+                // 取消最大功率
+                antennaConfigs.getAntenna((short) 1).setIsMaxTxPower(false);
+                // 设置功率
+                antennaConfigs.getAntenna((short) 1).setTxPowerinDbm(20.0);
+                // 设置灵敏度
+                antennaConfigs.getAntenna((short) 1).setRxSensitivityinDbm(-70);
+            }
 
-            impinjReader.setTagReportListener(new TagReportListenerImplementation());
+            impinjReader.setTagReportListener(new TagReportListenerImpl());
+
+            // 报告中包括 TID
+            settings.getReport().setIncludeFastId(true);
 
             // 启用参数设置
             impinjReader.applySettings(settings);
 
+            // 缓存清空
+            ReadTagsDataCache.clearAll();
+
             ImpinjReaderSingleton.start();
 
 
-            System.out.println("Press Enter to exit.");
+            System.out.println("Press Enter to show CacheData.");
             Scanner s = new Scanner(System.in);
             s.nextLine();
 
-            ImpinjReaderSingleton.stop();
+            for (Object pageShowDatum : ReadTagsDataCache.getPageShowData()) {
+                log.info("返回结果：" + pageShowDatum.toString());
+            }
 
+            System.out.println("Press Enter to exit.");
+            Scanner s1 = new Scanner(System.in);
+            s1.nextLine();
+
+            ImpinjReaderSingleton.stop();
 
             ImpinjReaderSingleton.disConnect();
 
