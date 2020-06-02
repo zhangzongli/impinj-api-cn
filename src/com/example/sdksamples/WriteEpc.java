@@ -16,17 +16,20 @@ public class WriteEpc implements TagReportListener, TagOpCompleteListener {
     static Random r = new Random();
     private ImpinjReader reader;
 
+    private static String baseEpc = "0001000100001001";
+
     static String getRandomEpc() {
         String epc = "";
+        epc = baseEpc;
 
-        // get the length of the EPC from 1 to 8 words
-        int numwords = r.nextInt((6 - 1) + 1) + 1;
-        // int numwords = 1;
-
-        for (int i = 0; i < numwords; i++) {
-            Short s = (short) r.nextInt(Short.MAX_VALUE + 1);
-            epc += String.format("%04X", s);
-        }
+//        // get the length of the EPC from 1 to 8 words
+//        int numwords = r.nextInt((6 - 1) + 1) + 1;
+//        // int numwords = 1;
+//
+//        for (int i = 0; i < numwords; i++) {
+//            Short s = (short) r.nextInt(Short.MAX_VALUE + 1);
+//            epc += String.format("%04X", s);
+//        }
         return epc;
     }
 
@@ -97,7 +100,8 @@ public class WriteEpc implements TagReportListener, TagOpCompleteListener {
     void run() {
 
         try {
-            String hostname = System.getProperty(SampleProperties.hostname);
+//            String hostname = System.getProperty(SampleProperties.hostname);
+            String hostname = "169.254.1.1";
 
             if (hostname == null) {
                 throw new Exception("Must specify the '"
