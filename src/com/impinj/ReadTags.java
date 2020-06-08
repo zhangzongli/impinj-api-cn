@@ -7,6 +7,7 @@ import com.impinj.octane.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -35,25 +36,44 @@ public class ReadTags {
             // 设置搜索模式。不停读取标签 AB 状态循环
             settings.setSearchMode(SearchMode.DualTarget);
             settings.setSession(0);
-
+//            settings.setSearchMode(SearchMode.SingleTarget);
+//            settings.setSession(1);
 
             AntennaConfigGroup antennaConfigs = settings.getAntennas();
 
             log.info("当前读写器有"+ antennaConfigs.getAntennaConfigs().size() + "个天线");
 
             // 启用全部
-            antennaConfigs.enableAll();
-            for (int i = 1; i <= antennaConfigs.getAntennaConfigs().size(); i++) {
-                AntennaConfig antennaConfig = antennaConfigs.getAntenna((short) 1);
-                // 取消最大灵敏度
-                antennaConfigs.getAntenna((short) 1).setIsMaxRxSensitivity(false);
-                // 取消最大功率
-                antennaConfigs.getAntenna((short) 1).setIsMaxTxPower(false);
-                // 设置功率
-                antennaConfigs.getAntenna((short) 1).setTxPowerinDbm(20.0);
-                // 设置灵敏度
-                antennaConfigs.getAntenna((short) 1).setRxSensitivityinDbm(-70);
-            }
+            antennaConfigs.disableAll();
+            antennaConfigs.enableById(new short[]{3});
+            // 取消最大灵敏度
+            antennaConfigs.getAntenna((short) 3).setIsMaxRxSensitivity(false);
+            // 取消最大功率
+            antennaConfigs.getAntenna((short) 3).setIsMaxTxPower(false);
+            // 设置功率
+            antennaConfigs.getAntenna((short) 3).setTxPowerinDbm(20.0);
+            // 设置灵敏度
+            antennaConfigs.getAntenna((short) 3).setRxSensitivityinDbm(-70);
+            antennaConfigs.enableById(new short[]{2});
+            // 取消最大灵敏度
+            antennaConfigs.getAntenna((short) 2).setIsMaxRxSensitivity(false);
+            // 取消最大功率
+            antennaConfigs.getAntenna((short) 2).setIsMaxTxPower(false);
+            // 设置功率
+            antennaConfigs.getAntenna((short) 2).setTxPowerinDbm(20.0);
+            // 设置灵敏度
+            antennaConfigs.getAntenna((short) 2).setRxSensitivityinDbm(-70);
+//            for (int i = 1; i <= antennaConfigs.getAntennaConfigs().size(); i++) {
+//                AntennaConfig antennaConfig = antennaConfigs.getAntenna((short) i);
+//                // 取消最大灵敏度
+//                antennaConfigs.getAntenna((short) 1).setIsMaxRxSensitivity(false);
+//                // 取消最大功率
+//                antennaConfigs.getAntenna((short) 1).setIsMaxTxPower(false);
+//                // 设置功率
+//                antennaConfigs.getAntenna((short) 1).setTxPowerinDbm(20.0);
+//                // 设置灵敏度
+//                antennaConfigs.getAntenna((short) 1).setRxSensitivityinDbm(-70);
+//            }
 
             impinjReader.setTagReportListener(new TagReportListenerImpl());
 
@@ -73,8 +93,15 @@ public class ReadTags {
             Scanner s = new Scanner(System.in);
             s.nextLine();
 
-            for (Object pageShowDatum : ReadTagsDataCache.getPageShowData()) {
-                log.info("返回结果：" + pageShowDatum.toString());
+//            for (Object pageShowDatum : ReadTagsDataCache.getPageShowData()) {
+//                log.info("返回结果：" + pageShowDatum.toString());
+//            }
+
+            for (String tagId : ReadTagsDataCache.getDirectionMap().keySet()) {
+
+                List<String> antennaPortList = ReadTagsDataCache.getDirectionMap().get(tagId);
+
+                log.info("返回结果：" +tagId + "  读取的天线端口顺序为：" + String.join(",", antennaPortList));
             }
 
             System.out.println("Press Enter to exit.");

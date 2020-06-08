@@ -16,9 +16,13 @@ public class TagReportListenerImpl implements TagReportListener {
         List<Tag> tags = tagReport.getTags();
         for (Tag tag : tags) {
             if (tag.isFastIdPresent()) {
-                ReadTagsDataCache.add(tag.getTid().toHexString());
+                ReadTagsDataCache.add(tag.getTid().toHexString(), tag.getAntennaPortNumber());
 
                 System.out.print("fast_id: " + tag.getTid().toHexString());
+            }
+
+            if (tag.isAntennaPortNumberPresent()) {
+                System.out.print(" antenna: " + tag.getAntennaPortNumber());
             }
             System.out.println("");
         }
