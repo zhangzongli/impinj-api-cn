@@ -26,10 +26,20 @@ public class JudgeInOrOutByAntennaPortUtil {
     //   出入库时，在反复横跳，出来进去出来进去。只看第一次和最后一次去判断出入库
 
     /** 入库端口数据 */
-    private static final String[] inPortArr = {"1", "2"};
+    private static final List<String> inPortList = new ArrayList<String>() {
+        {
+            add("1");
+            add("2");
+        }
+    };
 
     /** 出库端口数据 */
-    private static final String[] outPortArr = {"3", "4"};
+    private static final List<String> outPortList = new ArrayList<String>() {
+        {
+            add("3");
+            add("4");
+        }
+    };
 
     /**
      * 通过第一次读取到的天线端口号
@@ -37,6 +47,11 @@ public class JudgeInOrOutByAntennaPortUtil {
      * @return
      */
     public static InOrOutEnum judgeInOrOurByFirstAntennaPort(String port) {
-
+        if (inPortList.contains(port)) {
+            return InOrOutEnum.IN;
+        }else if (outPortList.contains(port)) {
+            return InOrOutEnum.OUT;
+        }
+        return null;
     }
 }

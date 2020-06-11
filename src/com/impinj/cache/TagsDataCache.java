@@ -1,7 +1,9 @@
 package com.impinj.cache;
 
+import com.impinj.enums.InOrOutEnum;
 import com.impinj.model.TagDataModel;
 import com.impinj.octane.Tag;
+import com.impinj.util.JudgeInOrOutByAntennaPortUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,17 +27,16 @@ public class TagsDataCache {
         String tagId = String.valueOf(tag.getTid());
         // todo 增加一次拿取最大数check
 
+        String port = String.valueOf(tag.getAntennaPortNumber());
+        log.info(String.format("antennaPort: %s", tag.getAntennaPortNumber()));
+
         if (tagDataMap.keySet().contains(tagId)) {
             TagDataModel tagDataModel = tagDataMap.get(tagId);
             if (tag.isAntennaPortNumberPresent()) {
-                List<String> antennaPortList = tagDataModel.getAntennaPortList();
-
-                tagDataModel.setAntennaPortList(new ArrayList<String>() {
-                    {
-                        add(String.valueOf(tag.getAntennaPortNumber()));
-                    }
-                });
-                log.info(String.format("antennaPort: %s", tag.getAntennaPortNumber()));
+                List<InOrOutEnum> antennaPortList = tagDataModel.getInOrOutAntennatList();
+                InOrOutEnum inOrOutEnum = JudgeInOrOutByAntennaPortUtil.judgeInOrOurByFirstAntennaPort(port);
+                log.info(String.format("标签是被 %s 的天线扫描到", inOrOutEnum.getCode()));
+                antennaPortList.set(antennaPortList.size(), inOrOutEnum);
             }
 
         }else {
@@ -47,14 +48,15 @@ public class TagsDataCache {
             }
 
             if (tag.isAntennaPortNumberPresent()) {
-                tagDataModel.setAntennaPortList(new ArrayList<String>() {
+
+                InOrOutEnum inOrOutEnum = JudgeInOrOutByAntennaPortUtil.judgeInOrOurByFirstAntennaPort(port);
+                log.info(String.format("标签是被 %s 的天线扫描到", inOrOutEnum.getCode()));
+                tagDataModel.setInOrOutAntennatList(new ArrayList<InOrOutEnum>() {
                     {
-                        add(String.valueOf(tag.getAntennaPortNumber()));
+                        add(inOrOutEnum);
                     }
                 });
-                log.info(String.format("antennaPort: %s", tag.getAntennaPortNumber()));
 
-                // 根据第一个读取到的天线端口号 来判断是否出入库
             }
         }
     }

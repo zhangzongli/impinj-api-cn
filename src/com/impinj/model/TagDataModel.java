@@ -21,8 +21,12 @@ public class TagDataModel {
     /** epc */
     private String epc;
 
-    /** 读取天线端口号顺序 */
-    private List<String> antennaPortList;
+    /**
+     * 读取天线端口号顺序
+     * in : 代表被屋内天线扫描到
+     * out : 代表被屋外天线扫描到
+     */
+    private List<InOrOutEnum> inOrOutAntennatList;
 
     /** 判断第一个被读取到的天线端口号 是出库还是入库 */
     private InOrOutEnum firstInOrOutEnum;
@@ -57,12 +61,12 @@ public class TagDataModel {
         this.epc = epc;
     }
 
-    public List<String> getAntennaPortList() {
-        return antennaPortList;
+    public List<InOrOutEnum> getInOrOutAntennatList() {
+        return inOrOutAntennatList;
     }
 
-    public void setAntennaPortList(List<String> antennaPortList) {
-        this.antennaPortList = antennaPortList;
+    public void setInOrOutAntennatList(List<InOrOutEnum> inOrOutAntennatList) {
+        this.inOrOutAntennatList = inOrOutAntennatList;
     }
 
     public InOrOutEnum getFirstInOrOutEnum() {

@@ -8,6 +8,7 @@ package com.impinj.enums;
  **/
 public enum InOrOutEnum {
 
+    NONE("none", "未操作"),
     IN("in", "入库"),
     OUT("out", "出库");
 
