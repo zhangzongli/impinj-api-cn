@@ -5,9 +5,13 @@ import com.impinj.octane.Tag;
 import com.impinj.octane.TagReport;
 import com.impinj.octane.TagReportListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class TagReportListenerImplementation implements TagReportListener {
+
+    private static final SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Override
     public void onTagReported(ImpinjReader reader, TagReport report) {
@@ -26,8 +30,10 @@ public class TagReportListenerImplementation implements TagReportListener {
                 System.out.print(" antenna: " + t.getAntennaPortNumber());
             }
 
+            // 时间与北京时间不符。 使用系统时间
             if (t.isFirstSeenTimePresent()) {
                 System.out.print(" first: " + t.getFirstSeenTime().ToString());
+                System.out.print(" first Date : " + sf.format(t.getFirstSeenTime().getLocalDateTime()));
             }
 
             if (t.isLastSeenTimePresent()) {

@@ -2,6 +2,7 @@ package com.impinj.listener;
 
 import com.impinj.ReadTags;
 import com.impinj.cache.ReadTagsDataCache;
+import com.impinj.cache.TagsDataCache;
 import com.impinj.octane.ImpinjReader;
 import com.impinj.octane.Tag;
 import com.impinj.octane.TagReport;
@@ -16,7 +17,7 @@ public class TagReportListenerImpl implements TagReportListener {
         List<Tag> tags = tagReport.getTags();
         for (Tag tag : tags) {
             if (tag.isFastIdPresent()) {
-                ReadTagsDataCache.add(tag.getTid().toHexString(), tag.getAntennaPortNumber());
+                TagsDataCache.addTagData(tag);
 
                 System.out.print("fast_id: " + tag.getTid().toHexString());
             }

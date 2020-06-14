@@ -2,6 +2,7 @@ package com.impinj.model;
 
 import com.impinj.enums.InOrOutEnum;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,6 +12,9 @@ import java.util.List;
  * @create: 2020-06-08 21:43
  **/
 public class TagDataModel {
+
+    /** 读取时间 */
+    private Date readTime;
 
     /** 标签id */
     private String tid;
@@ -26,16 +30,21 @@ public class TagDataModel {
      * in : 代表被屋内天线扫描到
      * out : 代表被屋外天线扫描到
      */
-    private List<InOrOutEnum> inOrOutAntennatList;
+    private List<String> inOrOuthousetList;
 
-    /** 判断第一个被读取到的天线端口号 是出库还是入库 */
-    private InOrOutEnum firstInOrOutEnum;
-
-    /** 判断第二个被读取到的天线端口号 是出库还是入库 */
-    private InOrOutEnum secondInOrOutEnum;
+    /** 通过天线判断 是出库还是入库 */
+    private InOrOutEnum inOrOut;
 
     /** 查询db 判断出库还是入库 */
     private InOrOutEnum dbInOrOutEnum;
+
+    public Date getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(Date readTime) {
+        this.readTime = readTime;
+    }
 
     public String getTid() {
         return tid;
@@ -61,28 +70,20 @@ public class TagDataModel {
         this.epc = epc;
     }
 
-    public List<InOrOutEnum> getInOrOutAntennatList() {
-        return inOrOutAntennatList;
+    public List<String> getInOrOuthousetList() {
+        return inOrOuthousetList;
     }
 
-    public void setInOrOutAntennatList(List<InOrOutEnum> inOrOutAntennatList) {
-        this.inOrOutAntennatList = inOrOutAntennatList;
+    public void setInOrOuthousetList(List<String> inOrOuthousetList) {
+        this.inOrOuthousetList = inOrOuthousetList;
     }
 
-    public InOrOutEnum getFirstInOrOutEnum() {
-        return firstInOrOutEnum;
+    public InOrOutEnum getInOrOut() {
+        return inOrOut;
     }
 
-    public void setFirstInOrOutEnum(InOrOutEnum firstInOrOutEnum) {
-        this.firstInOrOutEnum = firstInOrOutEnum;
-    }
-
-    public InOrOutEnum getSecondInOrOutEnum() {
-        return secondInOrOutEnum;
-    }
-
-    public void setSecondInOrOutEnum(InOrOutEnum secondInOrOutEnum) {
-        this.secondInOrOutEnum = secondInOrOutEnum;
+    public void setInOrOut(InOrOutEnum inOrOut) {
+        this.inOrOut = inOrOut;
     }
 
     public InOrOutEnum getDbInOrOutEnum() {

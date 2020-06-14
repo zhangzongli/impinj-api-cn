@@ -2,6 +2,7 @@ package com.impinj;
 
 import com.example.sdksamples.TagReportListenerImplementation;
 import com.impinj.cache.ReadTagsDataCache;
+import com.impinj.cache.TagsDataCache;
 import com.impinj.listener.TagReportListenerImpl;
 import com.impinj.octane.*;
 import org.slf4j.Logger;
@@ -84,7 +85,7 @@ public class ReadTags {
             impinjReader.applySettings(settings);
 
             // 缓存清空
-            ReadTagsDataCache.clearAll();
+            TagsDataCache.clearAll();
 
             ImpinjReaderSingleton.start();
 
@@ -97,12 +98,7 @@ public class ReadTags {
 //                log.info("返回结果：" + pageShowDatum.toString());
 //            }
 
-            for (String tagId : ReadTagsDataCache.getDirectionMap().keySet()) {
-
-                List<String> antennaPortList = ReadTagsDataCache.getDirectionMap().get(tagId);
-
-                log.info("返回结果：" +tagId + "  读取的天线端口顺序为：" + String.join(",", antennaPortList));
-            }
+            log.info(TagsDataCache.getDirection());
 
             System.out.println("Press Enter to exit.");
             Scanner s1 = new Scanner(System.in);

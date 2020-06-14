@@ -42,16 +42,50 @@ public class JudgeInOrOutByAntennaPortUtil {
     };
 
     /**
-     * 通过第一次读取到的天线端口号
-     * @param port
+     * 通过被读取到的天线端口号判断，标签是在库房外还是在库房内
+     * 此处的InOrOutEnum 不是出入库的概念。是标签被库房内的天线读取到还是被库房外的天线读取到
+     * @param port 端口号
      * @return
      */
-    public static InOrOutEnum judgeInOrOurByFirstAntennaPort(String port) {
+    public static String judgeInOrOurOfHouseByFirstAntennaPort(String port) {
         if (inPortList.contains(port)) {
-            return InOrOutEnum.IN;
+            return InOrOutEnum.IN.getCode();
         }else if (outPortList.contains(port)) {
-            return InOrOutEnum.OUT;
+            return InOrOutEnum.OUT.getCode();
         }
         return null;
+    }
+
+    /**
+     * 根据室内外天线读取顺序列表，判断该设备的出入库状态
+     * @param antennatList
+     * @return
+     */
+    public static InOrOutEnum judgeInOrOurByAntennaList(List<String> antennatList) {
+        // 只被一端的天线读取到，出入库状态未知。
+        if (antennatList.size() == 1) {
+            return InOrOutEnum.NONE;
+        }
+
+        InOrOutEnum firstStatus = InOrOutEnum.getInOrOutEnum(antennatList.get(0));
+        InOrOutEnum lastStatus = InOrOutEnum.getInOrOutEnum(antennatList.get(antennatList.size() - 1));
+
+        if (firstStatus.equals(lastStatus)) {
+            // 最先被读取的天线与最后被读取的天线位于库房的同一端，出入库状态未知。
+            return InOrOutEnum.NONE;
+        }
+
+        if (InOrOutEnum.IN.equals(lastStatus)) {
+            // 若最后被读取的天线位于库房内一端，则为入库
+            return InOrOutEnum.IN;
+        }
+
+        if (InOrOutEnum.OUT.equals(lastStatus)) {
+            // 若最后被读取的天线位于库房外一端，则为出库
+            return InOrOutEnum.OUT;
+        }
+
+        // 其他为none
+        return InOrOutEnum.NONE;
     }
 }
