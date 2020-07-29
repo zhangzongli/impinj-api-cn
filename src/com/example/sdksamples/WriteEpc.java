@@ -16,7 +16,7 @@ public class WriteEpc implements TagReportListener, TagOpCompleteListener {
     static Random r = new Random();
     private ImpinjReader reader;
 
-    private static String baseEpc = "0001000100001001";
+    private static String baseEpc = "052080000000000000000012";
 
     static String getRandomEpc() {
         String epc = "";
@@ -117,9 +117,19 @@ public class WriteEpc implements TagReportListener, TagOpCompleteListener {
             // Get the default settings
             Settings settings = reader.queryDefaultSettings();
 
+            AntennaConfigGroup antennaConfigs = settings.getAntennas();
+
             // just use a single antenna here
             settings.getAntennas().disableAll();
-            settings.getAntennas().getAntenna((short) 1).setEnabled(true);
+            antennaConfigs.enableById(new short[]{2});
+            // 取消最大灵敏度
+            antennaConfigs.getAntenna((short) 2).setIsMaxRxSensitivity(false);
+            // 取消最大功率
+            antennaConfigs.getAntenna((short) 2).setIsMaxTxPower(false);
+            // 设置功率
+            antennaConfigs.getAntenna((short) 2).setTxPowerinDbm(10.0);
+            // 设置灵敏度
+            antennaConfigs.getAntenna((short) 2).setRxSensitivityinDbm(-70);
 
             // set session one so we see the tag only once every few seconds
             settings.getReport().setIncludeAntennaPortNumber(true);

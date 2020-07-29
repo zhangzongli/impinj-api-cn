@@ -16,6 +16,8 @@ public class TagReportListenerImpl implements TagReportListener {
     public void onTagReported(ImpinjReader impinjReader, TagReport tagReport) {
         List<Tag> tags = tagReport.getTags();
         for (Tag tag : tags) {
+            System.out.print("epc: " + tag.getEpc().toHexString() + "   ");
+
             if (tag.isFastIdPresent()) {
                 TagsDataCache.addTagData(tag);
 

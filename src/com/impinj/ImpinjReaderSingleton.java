@@ -25,6 +25,7 @@ public class ImpinjReaderSingleton {
     private static int retryNum = 0;
 
     private static final String hostname = "169.254.1.1";
+//    private static final String hostname = "192.168.31.200";
 
 
     ImpinjReaderSingleton() {}
